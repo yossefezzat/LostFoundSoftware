@@ -10,6 +10,7 @@ public class Item {
 	private ArrayList<String> listofquestions;
 	private String image;
 	private String date;
+	private String Answers;
 
 	Item() {
 
@@ -74,4 +75,11 @@ public class Item {
 		this.date = date;
 	}
 
+	public String getAnswers() {
+		return Answers;
+	}
+
+	public void setAnswers(String answers) {
+		Answers = answers;
+	}
 }
