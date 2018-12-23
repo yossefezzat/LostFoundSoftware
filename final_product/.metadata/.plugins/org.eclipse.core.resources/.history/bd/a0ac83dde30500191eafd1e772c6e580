@@ -1,0 +1,16 @@
+package database;
+
+public class HomePage  {
+
+	public static void main(String args[]) throws Throwable {
+	
+		LoginForm frame = new LoginForm();
+		frame.setVisible(true);
+
+		
+		
+
+		
+	}
+
+}

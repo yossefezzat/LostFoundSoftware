@@ -1,0 +1,20 @@
+package database;
+
+public class HomePage {
+	
+	public  void login () throws Throwable {
+		LoginForm log = new LoginForm();
+		log.show();
+		this.finalize();
+		
+	}
+	
+	
+	
+	public static void main (String args[]) {
+		
+	}
+	
+	
+	
+}

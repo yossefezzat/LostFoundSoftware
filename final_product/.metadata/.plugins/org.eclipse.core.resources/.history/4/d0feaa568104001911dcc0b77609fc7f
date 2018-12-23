@@ -1,0 +1,82 @@
+package database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class SQL {
+
+
+	public Connection con ;
+	
+	public void opendatabase() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareproject" , "root" ,"root");
+	}
+	
+	public void closedatabase() throws SQLException {
+		con.close();
+	}
+	
+	
+	
+	public Boolean CreateUser(String Email , String Password , String FirstName , String LastName ) throws SQLException {
+		
+		String sql = "INSERT INTO user (Password) VALUES (?) ";
+		
+		PreparedStatement statement = con.prepareStatement(sql);
+		statement.setString( 1 , "1234"); 
+		int i =statement.executeUpdate();
+		
+		
+		return true ;
+		
+	}
+	
+	
+	public Boolean SearchUser(String Em , String Pw) throws SQLException {
+		
+		//String query1 = "select Email from user ";
+		String query2 = "SELECT Password FROM user WHERE Email=" + "'" + Em + "'";
+		
+		PreparedStatement statement2 = con.prepareStatement(query2);
+		
+		ResultSet result = null;
+		
+		result = statement2.executeQuery(query2);
+		
+		 String pww = "";
+		 while ( result.next() ) {
+			pww = result.getString("Password");
+         }
+		
+		if(result.equals(null)) {
+			System.out.println("no Email");
+			return false;
+		}
+		else if(pww.equals(Pw))
+			return true;
+		else {
+			System.out.println("Wrong password");
+			return false;
+		}		
+//		 String [] emails = dataEmails.split(" ");
+//		 
+//		 for(int i=0 ; i<emails.length ; i++ ) {
+//			 
+//			 if(emails[i].equals(Em)) {
+//				 
+//			 }
+//			 System.out.println(emails[i]);
+//		 }
+		 
+		
+	}
+	
+	
+	
+	
+	
+}

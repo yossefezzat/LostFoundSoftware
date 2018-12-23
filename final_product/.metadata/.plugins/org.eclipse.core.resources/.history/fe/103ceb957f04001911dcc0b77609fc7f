@@ -1,0 +1,82 @@
+package database;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class Controller{
+	
+	SQL sql = new SQL();
+
+	public boolean login(String Email, String Password) {
+		
+		Boolean validate= false;
+		
+		try {
+			sql.opendatabase();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+		try {
+			 validate = sql.SearchUser(Email, Password);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		if( validate == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	public boolean SignUp() {
+		
+		return false;
+
+	}
+	
+	public void logout() {
+		
+	}
+	
+	public ArrayList<Item> Search(){
+		
+		return null;
+		
+	}
+	
+	public void Posting(Item t) {
+		
+	}
+	
+	public Item ChooseItem() {
+		return null;
+	}
+	
+	public void showdetails(Item t) {
+		
+	}
+	
+	public boolean CheckAnswers() {
+		return false;
+		
+	}
+	
+	public boolean ValidateLogin() {
+		try {
+			sql.closedatabase();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return false;
+		
+	}
+	
+
+}

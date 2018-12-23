@@ -1,0 +1,12 @@
+package database;
+
+public class HomePage  {
+
+	public static void main(String args[]) throws Throwable {
+	
+		OpenSoftware frame = new OpenSoftware();
+		frame.setVisible(true);
+
+	}
+
+}

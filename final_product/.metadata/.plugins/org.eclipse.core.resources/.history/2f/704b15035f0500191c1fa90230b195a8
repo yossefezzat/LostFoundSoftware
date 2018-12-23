@@ -1,0 +1,97 @@
+package database;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class Controller{
+	
+	SQL sql = new SQL();
+
+	public boolean login(String Email, String Password) {
+		
+		Boolean validate= false;
+		
+		try {
+			sql.opendatabase();
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+			
+		try {
+			 validate = sql.SearchUser(Email, Password);
+		} catch (SQLException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		if( validate == true) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+	}
+
+	public boolean SignUp(String Email , String Password , String FirstName , String LastName ) throws SQLException {
+		
+		sql.CreateUser(Email, Password, FirstName, LastName);
+		
+		return true;
+
+	}
+	
+	public void logout() {
+		try {
+			sql.closedatabase();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	public ArrayList<Item> Search(String des) throws SQLException{
+		ArrayList<Item> items = sql.SearchItems(des);
+		return items ; 
+		
+	}
+	
+	public void Posting(Item t) throws SQLException {
+		String list_Q = "";
+		for(int i=0 ; i< t.getListofquestions().size() ; i++) {
+			list_Q += t.getListofquestions().get(i) + " ";
+		}
+		sql.CreateItem(list_Q, t.getImage(), t.getDescription(), t.getLocation(), t.getDate());
+		
+		
+	}
+	
+	public Item ChooseItem(Integer id) {
+		
+		
+		
+		return null;
+	}
+	
+	public void showdetails(Item t) {
+		
+	}
+	
+	public boolean CheckAnswers() {
+		return false;
+		
+	}
+	
+	public boolean ValidateLogin(String Em , String pw) {
+
+		login(Em , pw);
+		
+		
+		return false;
+		
+	}
+	
+
+}

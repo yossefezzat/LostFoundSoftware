@@ -1,0 +1,235 @@
+package database;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+
+public class LostForm extends JFrame {
+
+	public ArrayList<Item> item = null;
+	private JPanel contentPane;
+	private JTextField name;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JButton btnNewButton;
+	private JLabel photo;
+	private JPanel panel;
+	private JLabel label;
+	private JTextField textField;
+	private JLabel label_1;
+	private JTextField textField_1;
+	private JLabel label_2;
+	private JTextField textField_2;
+	private JLabel label_3;
+	private JLabel label_4;
+	private JLabel label_5;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LostForm frame = new LostForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LostForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		name = new JTextField();
+		name.setBounds(229, 29, 216, 27);
+		contentPane.add(name);
+		name.setColumns(10);
+	
+		JLabel lblEnterNameOf = new JLabel("Enter name of lost item");
+		lblEnterNameOf.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblEnterNameOf.setBounds(33, 33, 187, 14);
+		contentPane.add(lblEnterNameOf);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(546, 117, 216, 333);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		photo = new JLabel("");
+		photo.setBounds(33, 58, 120, 86);
+		contentPane.add(photo);
+		
+		btnNewButton = new JButton("show");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String n = name.getText();
+				
+				item = new ArrayList<Item>();
+				
+				SQL sql = new SQL();
+				try {
+					sql.opendatabase();
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					item = sql.SearchItems(n);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				DefaultTableModel model = new DefaultTableModel();
+				Object [] columnName  = new  Object [2]; 
+				columnName[0] = "id" ; columnName[1] ="name" ;
+				
+				model.setColumnIdentifiers(columnName);
+				Object [] rowName  = new  Object [2];
+				
+				for(int i = 0 ; i< item.size() ; i++) {
+					rowName[0] = item.get(i).getId();
+					rowName[1] = item.get(i).getDescription();
+					
+					model.addRow(rowName);
+				}
+				
+				
+				
+				table.setModel(model);
+				
+				
+				try {
+					sql.closedatabase();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				ListSelectionModel modeel = table.getSelectionModel();
+				modeel.addListSelectionListener(new ListSelectionListener() {
+
+					private Integer index;
+
+					public void valueChanged(ListSelectionEvent e) {
+						if (!modeel.isSelectionEmpty())
+							index = modeel.getMinSelectionIndex();
+							photo.setIcon(new ImageIcon(item.get(index).getImage()));
+					}
+				});
+				
+				
+
+			}
+		});
+		btnNewButton.setBounds(604, 50, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		panel = new JPanel();
+		panel.setVisible(false);
+		panel.setLayout(null);
+		panel.setBounds(10, 163, 512, 287);
+		contentPane.add(panel);
+		
+		label = new JLabel("Question 1");
+		label.setFont(new Font("Arial", Font.PLAIN, 15));
+		label.setBounds(10, 17, 83, 14);
+		panel.add(label);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(103, 11, 394, 28);
+		panel.add(textField);
+		
+		label_1 = new JLabel("Question 2");
+		label_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		label_1.setBounds(10, 115, 83, 14);
+		panel.add(label_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(103, 109, 394, 28);
+		panel.add(textField_1);
+		
+		label_2 = new JLabel("Question 3");
+		label_2.setFont(new Font("Arial", Font.PLAIN, 15));
+		label_2.setBounds(10, 205, 83, 14);
+		panel.add(label_2);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(103, 199, 394, 28);
+		panel.add(textField_2);
+		
+		label_3 = new JLabel("Answer1");
+		label_3.setFont(new Font("Arial", Font.PLAIN, 15));
+		label_3.setBounds(115, 65, 83, 14);
+		panel.add(label_3);
+		
+		label_4 = new JLabel("Answer2");
+		label_4.setFont(new Font("Arial", Font.PLAIN, 15));
+		label_4.setBounds(113, 158, 83, 14);
+		panel.add(label_4);
+		
+		label_5 = new JLabel("Answer3");
+		label_5.setFont(new Font("Arial", Font.PLAIN, 15));
+		label_5.setBounds(115, 247, 83, 14);
+		panel.add(label_5);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(191, 63, 162, 20);
+		panel.add(textField_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(191, 156, 162, 20);
+		panel.add(textField_4);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(191, 245, 162, 20);
+		panel.add(textField_5);
+		
+		
+
+	}
+}

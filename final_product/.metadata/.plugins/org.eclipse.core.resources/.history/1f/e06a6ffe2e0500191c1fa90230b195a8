@@ -1,0 +1,131 @@
+package database;
+
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.swing.DefaultBoundedRangeModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
+public class LostForm extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTable table;
+	private JScrollPane scrollPane;
+	private JButton btnNewButton;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LostForm frame = new LostForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LostForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 500);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		textField = new JTextField();
+		textField.setBounds(229, 29, 216, 27);
+		contentPane.add(textField);
+		textField.setColumns(10);
+	
+		JLabel lblEnterNameOf = new JLabel("Enter name of lost item");
+		lblEnterNameOf.setFont(new Font("Arial", Font.PLAIN, 18));
+		lblEnterNameOf.setBounds(33, 33, 187, 14);
+		contentPane.add(lblEnterNameOf);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(133, 114, 543, 302);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		btnNewButton = new JButton("show");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ArrayList<Item> item = new ArrayList<Item>();
+				SQL sql = new SQL();
+				try {
+					sql.opendatabase();
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					item = sql.SearchItems("wallet");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				DefaultTableModel model = new DefaultTableModel();
+				Object [] columnName  = new  Object [6]; 
+				columnName[0] = "id" ; columnName[1] ="listofquestions" ; columnName[2] = "location" ; columnName[3] = "description" ; columnName[4] = "date" ; columnName[5] = "iamge";
+				
+				
+				Object [] rowName  = new  Object [6];
+				
+				for(int i = 0 ; i< item.size() ; i++) {
+					rowName[0] = item.get(i).getId();
+					rowName[1] = item.get(i).getListofquestions();
+					rowName[2] = item.get(i).getLocation();
+					rowName[3] = item.get(i).getDescription();
+					rowName[4] = item.get(i).getDate();
+					rowName[5] = item.get(i).getImage();
+				}
+				model.setColumnIdentifiers(columnName);
+				model.addRow(rowName);
+				
+				table.setModel(model);
+				
+				try {
+					sql.closedatabase();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton.setBounds(604, 50, 89, 23);
+		contentPane.add(btnNewButton);
+		
+		for(int i=0 ; i< 4 ;  i++) {
+		JLabel data = new JLabel("");
+		data.setBounds(40, 115, 85, 80);
+		contentPane.add(data);
+		}
+	}
+}

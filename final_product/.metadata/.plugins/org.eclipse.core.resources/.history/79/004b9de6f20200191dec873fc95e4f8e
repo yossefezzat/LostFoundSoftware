@@ -1,0 +1,73 @@
+package database;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+
+public class SignupForm extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					LoginForm frame = new LoginForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public SignupForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 761, 437);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 50));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(194, 11, 344, 71);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblUsername = new JLabel("UserName");
+		lblUsername.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblUsername.setBounds(40, 149, 105, 25);
+		contentPane.add(lblUsername);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblPassword.setBounds(40, 215, 110, 25);
+		contentPane.add(lblPassword);
+		
+		textField = new JTextField();
+		textField.setBounds(190, 149, 157, 25);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(190, 218, 157, 25);
+		contentPane.add(textField_1);
+	}
+}

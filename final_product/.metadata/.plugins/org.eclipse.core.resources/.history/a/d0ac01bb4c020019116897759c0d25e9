@@ -1,0 +1,9 @@
+package database;
+
+public class MySQL {
+
+	
+	public static void  main(String args []) {
+		
+	}
+}

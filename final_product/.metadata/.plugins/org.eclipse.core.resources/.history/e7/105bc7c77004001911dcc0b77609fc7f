@@ -1,0 +1,114 @@
+package database;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.awt.event.ActionEvent;
+
+public class LoginForm extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField email;
+	private JTextField password;
+	private String em ;
+	private String pw ;
+	SQL sql = new SQL(); 
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SignupForm frame = new SignupForm();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public LoginForm() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 761, 437);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("Login");
+		lblNewLabel.setFont(new Font("Arial Black", Font.PLAIN, 50));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(194, 11, 344, 71);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblUsername = new JLabel("Email");
+		lblUsername.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblUsername.setBounds(40, 149, 105, 25);
+		contentPane.add(lblUsername);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setFont(new Font("Arial", Font.PLAIN, 20));
+		lblPassword.setBounds(40, 215, 110, 25);
+		contentPane.add(lblPassword);
+		
+		email = new JTextField();
+		email.setBounds(190, 149, 314, 25);
+		contentPane.add(email);
+		email.setColumns(10);
+		
+		password = new JTextField();
+		password.setColumns(10);
+		password.setBounds(190, 218, 314, 25);
+		contentPane.add(password);
+		
+		JButton btnNewButton = new JButton("Login");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				pw = password.getText();
+				em = email.getText();
+				
+				try {
+					sql.opendatabase();
+				} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+					
+				
+				
+				
+				try {
+					sql.closedatabase();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				
+				
+				
+			}
+		});
+		btnNewButton.setBounds(190, 302, 220, 35);
+		contentPane.add(btnNewButton);
+	}
+}

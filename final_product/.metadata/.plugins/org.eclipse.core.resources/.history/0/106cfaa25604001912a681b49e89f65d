@@ -1,0 +1,31 @@
+package database;
+
+
+import java.sql.*;
+
+public class MySQL {
+
+	
+	public static void  main(String args []) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+			
+		Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/softwareproject" , "root" ,"root");
+//		
+//	PreparedStatement statement = con.prepareStatement("INSERT INTO user (id , Email)  VALUES(5 , 'RANA');");
+//	ResultSet result = statement.executeQuery();
+//		while(result.next()) {
+//
+//			System.out.println(result.getString("Email")   );
+//		}
+		
+		
+		
+		
+
+		String sql = "INSERT INTO user (Password) VALUES (?)";
+		PreparedStatement statement = con.prepareStatement(sql);
+		statement.setString( 1 , "1234"); 
+		int i =statement.executeUpdate();
+		 
+	}
+}

@@ -1,0 +1,54 @@
+package database;
+
+import java.util.ArrayList;
+
+public class Controller extends User {
+	
+	SQL sql = new SQL();
+
+	public boolean login(String Email, String Password) {
+
+		return false;
+
+	}
+
+	public boolean SignUp() {
+
+		return false;
+
+	}
+	
+	public void logout() {
+		
+	}
+	
+	public ArrayList<Item> Search(){
+		
+		return null;
+		
+	}
+	
+	public void Posting(Item t) {
+		
+	}
+	
+	public Item ChooseItem() {
+		return null;
+	}
+	
+	public void showdetails(Item t) {
+		
+	}
+	
+	public boolean CheckAnswers() {
+		return false;
+		
+	}
+	
+	public boolean ValidateLogin() {
+		return false;
+		
+	}
+	
+
+}

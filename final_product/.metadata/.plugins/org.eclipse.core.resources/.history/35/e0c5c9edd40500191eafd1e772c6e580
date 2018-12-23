@@ -1,0 +1,20 @@
+package database;
+
+public class HomePage  {
+
+	public static void main(String args[]) throws Throwable {
+	
+//		LoginForm frame = new LoginForm();
+//		frame.setVisible(true);
+
+		
+		
+		SQL control = new SQL();
+		control.opendatabase();
+		
+		System.out.println(control.SearchUserbyEmail_Pw("y@yahoo.com","123456789"));
+		control.closedatabase();
+		
+	}
+
+}
