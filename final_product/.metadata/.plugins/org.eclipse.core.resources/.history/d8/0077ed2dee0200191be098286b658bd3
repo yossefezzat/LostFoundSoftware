@@ -1,0 +1,22 @@
+package database;
+
+
+import java.sql.*;
+
+public class MySQL {
+
+	
+	public static void  main(String args []) throws ClassNotFoundException, SQLException {
+			
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc::mysql://localhost:8080/softwareproject", "root", "root");
+		
+		PreparedStatement statement = con.prepareStatement("select * from user");
+		
+		ResultSet result = statement.executeQuery();
+		
+		/*while(result.next()) {
+			System.out.println(result.getString(1));
+		}*/
+	}
+}

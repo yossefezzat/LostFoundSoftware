@@ -1,0 +1,21 @@
+package database;
+
+public class HomePage {
+	
+	public static  void login () throws Throwable {
+		LoginForm log = new LoginForm();
+		log.show();
+		
+		
+	}
+	
+	
+	
+	public static void main (String args[]) throws Throwable {
+		
+		login();
+	}
+	
+	
+	
+}

@@ -1,0 +1,27 @@
+package database;
+
+public class HomePage extends User {
+	
+	public static Controller control = new Controller();
+	public static User user = new User();
+
+	public static void login() throws Throwable {
+
+		LoginForm log = new LoginForm();
+		log.show();
+		
+		user.setEmail(log.getEm());
+		user.setPassword(log.getPw());
+		
+		boolean valid = control.login(user.getEmail(), user.getPassword());
+		
+		log.validate = valid;
+	}
+
+	public static void main(String args[]) throws Throwable {
+		
+		login();
+		
+	}
+
+}
